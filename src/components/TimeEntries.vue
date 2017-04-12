@@ -1,11 +1,5 @@
 <template>
   <div>
-    <button
-      v-if="$route.path !== '/time-entries/log-time'"
-      v-link="{name: 'logtime'}"
-      class="btn btn-primary">
-      Log Time
-    </button>
 
     <div v-if="$route.path === '/time-entries/log-time'">
       <h3>Log Time</h3>     
@@ -51,7 +45,7 @@
             <div class="col-sm-1">
               <button 
                 class="btn btn-xs btn-danger delete-button"
-                @click="deleteTimeEntry(timeEntry)">
+                @click="showDelete(timeEntry)">
                 X
               </button>
             </div>
@@ -60,12 +54,23 @@
         </a>
 
       </div>
-    </div>    
+    </div>  
+    <modal 
+      title="Small Modal" 
+      :small='true' 
+      :show.sync="confirmDelete"
+      :callback="deleteTimeEntry"
+    >
+      <div slot="modal-body" class="modal-body">Are you sure?</div>
+    </modal>  
   </div>
 </template>
 <script>
+  import Modal from 'vue-strap/src/Modal';
+
   export default {
     name: 'timeentries',
+    components: { Modal },
     data() {
       // We want to start with an existing time entry
       const existingEntry = {
@@ -83,17 +88,24 @@
         // Start out with the existing entry
         // by placing it in the array
         timeEntries: [existingEntry],
+        confirmDelete: false,
+        timeEntry: {},
       };
     },
     methods: {
-      deleteTimeEntry(timeEntry) {
+      deleteTimeEntry() {
         // Get the index of the clicked time entry and splice it out
-        const index = this.timeEntries.indexOf(timeEntry);
-        const doDelete = window.confirm('Are you sure you want to delete this time entry?');
-        if (doDelete) {
-          this.timeEntries.splice(index, 1);
-          this.$dispatch('deleteTime', timeEntry);
-        }
+        const index = this.timeEntries.indexOf(this.timeEntry);
+
+        this.timeEntries.splice(index, 1);
+        this.$emit('deleteTime', this.timeEntry);
+
+        this.confirmDelete = false;
+        this.timeEntry = {};
+      },
+      showDelete(time) {
+        this.confirmDelete = true;
+        this.timeEntry = time;
       },
     },
     events: {
