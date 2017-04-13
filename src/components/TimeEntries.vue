@@ -62,12 +62,12 @@
       </div>
     </div>  
     <modal 
-      title="Small Modal" 
+      title="Delete time entry" 
       :small='true' 
       :show.sync="confirmDelete"
       :callback="deleteTimeEntry"
     >
-      <div slot="modal-body" class="modal-body">Are you sure?</div>
+      <div slot="modal-body" class="modal-body">Delete this time entry?</div>
     </modal>  
   </div>
 </template>
@@ -77,23 +77,11 @@
   export default {
     name: 'timeentries',
     components: { Modal },
+    props: [
+      'timeEntries',
+    ],
     data() {
-      // We want to start with an existing time entry
-      const existingEntry = {
-        user: {
-          firstName: 'Ryan',
-          lastName: 'Chenkie',
-          email: 'ryanchenkie@gmail.com',
-          image: 'https://1.gravatar.com/avatar/7f4ec37467f2f7db6fffc7b4d2cc8dc2?s=250',
-        },
-        comment: 'First time entry',
-        totalTime: 1.5,
-        date: '2016-04-08',
-      };
       return {
-        // Start out with the existing entry
-        // by placing it in the array
-        timeEntries: [existingEntry],
         confirmDelete: false,
         timeEntry: {},
       };

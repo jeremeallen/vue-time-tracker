@@ -18,6 +18,7 @@
         <router-view 
           @timeUpdate="timeUpdate"
           @deleteTime="deleteTime"
+          :time-entries="timeEntries"
         >
         </router-view>
       </div>
@@ -31,13 +32,30 @@
     name: 'app',
     components: { Sidebar },
     data() {
+      const existingEntry = {
+        user: {
+          firstName: 'Ryan',
+          lastName: 'Chenkie',
+          email: 'ryanchenkie@gmail.com',
+          image: 'https://1.gravatar.com/avatar/7f4ec37467f2f7db6fffc7b4d2cc8dc2?s=250',
+        },
+        comment: 'First time entry',
+        totalTime: 1.5,
+        date: '2016-04-08',
+      };
+
       return {
         // Start with the same value as our
         // first time entry. Hard-coded for now
         // because we'll use a different approach
         // in the next article anyway
-        totalTime: 1.5,
+        timeEntries: [existingEntry],
       };
+    },
+    computed: {
+      totalTime() {
+        return this.timeEntries.reduce((total, t) => total + t.totalTime, 0);
+      },
     },
     methods: {
       // Increment the totalTime value based on the new
