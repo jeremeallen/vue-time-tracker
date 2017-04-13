@@ -1,8 +1,14 @@
 <template>
   <div>
-
+    <router-link 
+      v-if="$route.path !== '/time-entries/log-time'"
+      to="/time-entries/log-time"
+      class="btn btn-primary"
+    >
+      Log Time
+    </router-link>
     <div v-if="$route.path === '/time-entries/log-time'">
-      <h3>Log Time</h3>     
+      <h3>Log Time</h3>
     </div>
 
     <hr>
