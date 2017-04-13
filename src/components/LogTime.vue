@@ -31,8 +31,8 @@
         />
       </div>        
     </div>    
-    <button class="btn btn-primary" @click="save()">Save</button>
-    <button v-link="'/time-entries'" class="btn btn-danger">Cancel</button>    
+    <button class="btn btn-primary" @click="save">Save</button>
+    <router-link to="/time-entries" class="btn btn-danger">Cancel</router-link>  
     <hr>
   </div>
 
@@ -60,7 +60,7 @@
         const timeEntry = this.timeEntry;
         // We dispatch the timeEntry so it can be pushed
         // onto the timeEntries array in the parent component
-        this.$dispatch('timeUpdate', timeEntry);
+        this.$emit('timeUpdate', timeEntry);
         this.timeEntry = {};
       },
     },

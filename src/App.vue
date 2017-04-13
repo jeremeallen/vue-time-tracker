@@ -15,7 +15,11 @@
         <sidebar :time="totalTime"></sidebar> 
       </div>
       <div class="col-sm-9">
-        <router-view @deleteTime="deleteTime"></router-view>
+        <router-view 
+          @timeUpdate="timeUpdate"
+          @deleteTime="deleteTime"
+        >
+        </router-view>
       </div>
     </div>
   </div>
