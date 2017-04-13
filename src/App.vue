@@ -16,7 +16,7 @@
       </div>
       <div class="col-sm-9">
         <router-view 
-          @timeUpdate="timeUpdate"
+          @timeAdd="timeAdd"
           @deleteTime="deleteTime"
           :time-entries="timeEntries"
         >
@@ -54,14 +54,14 @@
     },
     computed: {
       totalTime() {
-        return this.timeEntries.reduce((total, t) => total + t.totalTime, 0);
+        return this.timeEntries.reduce((total, t) => total + Number(t.totalTime), 0);
       },
     },
     methods: {
       // Increment the totalTime value based on the new
       // time entry that is dispatched up
-      timeUpdate(timeEntry) {
-        this.totalTime += parseFloat(timeEntry.totalTime);
+      timeAdd(timeEntry) {
+        this.timeEntries.push(timeEntry);
       },
       // Decrement totalTime when a time entry is deleted
       deleteTime(timeEntry) {

@@ -60,7 +60,7 @@
         const timeEntry = this.timeEntry;
         // We dispatch the timeEntry so it can be pushed
         // onto the timeEntries array in the parent component
-        this.$emit('timeUpdate', timeEntry);
+        this.$emit('timeAdd', timeEntry);
         this.timeEntry = {};
       },
     },

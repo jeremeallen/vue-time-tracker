@@ -13,7 +13,7 @@
 
     <hr>
 
-    <router-view></router-view>
+    <router-view @timeAdd='timeAdd'></router-view>
 
     <div class="time-entries">
       <p v-if="!timeEntries.length"><strong>No time entries yet</strong></p>
@@ -101,11 +101,8 @@
         this.confirmDelete = true;
         this.timeEntry = time;
       },
-    },
-    events: {
-      timeUpdate(timeEntry) {
-        this.timeEntries.push(timeEntry);
-        return true;
+      timeAdd(timeEntry) {
+        this.$emit('timeAdd', timeEntry);
       },
     },
   };
